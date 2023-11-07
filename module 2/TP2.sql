@@ -1,22 +1,39 @@
 -- creation base de donnees
 /* commentaires */
 
---CREATE DATABASE entrepot;
+--CREATE DATABASE salade;
 
-USE entrepot;
+USE salade;
 GO
-DROP TABLE produit;
+DROP TABLE fruit;
+DROP TABLE couleur;
+CREATE TABLE [couleur] (
+  [id] int PRIMARY KEY IDENTITY(1, 1),
+  [nom] varchar(255) NOT NULL
+)
 GO
-CREATE TABLE produit(
-	id INT CONSTRAINT  pk_personne PRIMARY KEY IDENTITY(1,1),
-	nom VARCHAR(100) not null,
-	reference varchar(255) not null,
-	CONSTRAINT un_produit UNIQUE (reference)
-);
-GO
-INSERT INTO produit (nom,reference) VALUES('Boite','001');
-INSERT INTO produit (nom,reference) VALUES('Boite 2','002');
-GO
-SELECT * from produit;
 
+CREATE TABLE [fruit] (
+  [id] int PRIMARY KEY IDENTITY(1, 1),
+  [nom] varchar(255) NOT NULL,
+  [couleur_id] int
+)
+GO
 
+ALTER TABLE [fruit] ADD FOREIGN KEY ([couleur_id]) REFERENCES [couleur] ([id])
+GO
+
+INSERT INTO couleur (nom)VALUES ('rouge');
+INSERT INTO couleur (nom)VALUES ('vert');
+INSERT INTO couleur (nom)VALUES ('bleu');
+
+INSERT INTO fruit (nom,couleur_id)VALUES ('pomme',1);
+INSERT INTO fruit (nom,couleur_id)VALUES ('poire',2);
+INSERT INTO fruit (nom)VALUES ('cerise');
+GO
+--SELECT * from fruit;
+--SELECT * from couleur;
+SELECT * FROM fruit
+INNER JOIN  couleur ON fruit.couleur_id = couleur.id;
+SELECT * FROM fruit
+LEFT JOIN  couleur ON fruit.couleur_id = couleur.id;
