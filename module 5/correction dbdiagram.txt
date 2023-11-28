@@ -1,0 +1,19 @@
+
+Table personne{
+   id int [pk,increment]
+   nom vachar(255) [not null]
+   prenom vachar(255) [not null]
+}
+
+
+Table equipe{
+   id int [pk,increment]
+   nom vachar(255) [not null]
+   projet vachar(255) [not null]
+   personne_id int
+}
+
+Table equipe_has_personne{
+   personne_id int [pk]
+   equipe_id int [pk]
+}
